@@ -4,6 +4,8 @@ an **experiment** in routing off the rails (in plain ruby on rack)
 
 ## Implement a handler
 
+handler is probably the wrong term. ***dispatcher***?
+
 ```ruby
 class NiceHandler
   include Dapi::Handler
@@ -22,7 +24,9 @@ nice_handler.env = env # give it a rack env
 nice_handler.apt? # => true or false
 ```
 
-## connect to an action
+## Connect to an action
+
+not a rails action. i don't know a better name. ***dispatchee***?
 
 actions are normal rack apps, but you probably want to hook up to some
 controller-like thing.
