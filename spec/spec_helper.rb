@@ -1,6 +1,8 @@
 require 'rspec/mocks/standalone'
 require 'dapi'
 
+include Dapi
+
 class ProbeHandler
   include Handler
 

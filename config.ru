@@ -1,29 +1,25 @@
 require 'dapi'
 
-abc_path = Path.new('/abc') do
-  body = StringIO.new
-  body.puts 'you hit abc'
-  [ 200, {'Content-Type' => 'text/plain' }, body ]
-end
+post = Dapi::Post.new # match a post
+path = Dapi::Path.new('/abc') # match the path /abc
+post_abc = post & path # match post and path
 
-post = Post.new
-
-post_abc_path = All.new([post, abc_path])
-post_abc_path.action = lambda do |env|
+# action is a regular rack app
+post_abc.action = lambda do |env|
   body = StringIO.new
   body.puts 'you POSTed to abc'
+  body.rewind
   [ 200, {'Content-Type' => 'text/plain' }, body ]
 end
 
-not_found = NotFound.new
+not_found = Dapi::NotFound.new
 
-HANDLERS = [ post_abc_path, abc_path, post, not_found ]
+app = lambda do |env|
 
-APP = lambda do |env|
-  handlers = HANDLERS.map &:dup
-  first = First.new handlers
-  first.env = env
-  first.handle
+  # Union of routes short-circuits
+  routes = post_and_path | path | post | not_found
+  routes.env = env
+  routes.dispatch
 end
 
-run APP
+run app
