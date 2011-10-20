@@ -9,7 +9,7 @@ end
 
 class Post < RequestMethod
 
-  def handle?
+  def apt?
     http_method == 'POST'
   end
 
@@ -17,7 +17,7 @@ end
 
 class Get < RequestMethod
 
-  def handle?
+  def apt?
     http_method == 'GET'
   end
 

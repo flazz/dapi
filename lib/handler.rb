@@ -3,10 +3,10 @@ module Handler
   DEFAULT_ACTION = lambda { |env| raise "action not specified" }
 
 =begin
-this class requires #handle? to be implemented
+this class requires #apt? to be implemented
 =end
 
-  def handle
+  def dispatch
     action.call env
   end
 

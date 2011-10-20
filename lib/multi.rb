@@ -16,22 +16,22 @@ end
 class First
   include Multi
 
-  def handle?
+  def apt?
     set_envs
-
-    if first_apt_handler
-      true
-    else
-      raise 'no apt handler'
-    end
+    apt_handler?
   end
 
-  def handle
-    first_apt_handler.handle
+  def apt_handler?
+    apt_handler and true
   end
 
-  def first_apt_handler
-    @first_handler ||= handlers.detect { |h| h.handle? }
+  def dispatch
+    apt_handler? or raise 'no apt handler'
+    apt_handler.dispatch
+  end
+
+  def apt_handler
+    @apt_handler ||= handlers.detect { |h| h.apt? }
   end
 
 end
@@ -39,14 +39,13 @@ end
 class All
   include Multi
 
-  def handle?
+  def apt?
     set_envs
-    all_handle?
+    all_apt?
   end
 
-  def all_handle?
-    handlers.all? &:handle?
+  def all_apt?
+    handlers.all? &:apt?
   end
 
 end
-

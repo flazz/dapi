@@ -1,7 +1,7 @@
 class NotFound
   include Handler
 
-  def handle?
+  def apt?
     true
   end
 

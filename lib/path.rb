@@ -7,7 +7,7 @@ class Path
     action = blk
   end
 
-  def handle?
+  def apt?
     path == request_path
   end
 
