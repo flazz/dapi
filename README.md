@@ -81,7 +81,7 @@ end
 not_found = Dapi::NotFound.new
 
 app = lambda do |env|
-  routes = post_and_path | path | post | not_found
+  routes = post_abc | path | post | not_found
   routes.env = env
   routes.dispatch
 end
