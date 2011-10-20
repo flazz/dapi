@@ -66,7 +66,7 @@ some_requirement & and_another
 
 ## More complex example
 
-**put this in a config.ru and then rackup**
+this should run via rackup no problem
 
 ```ruby
 require 'dapi'
